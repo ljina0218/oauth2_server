@@ -31,7 +31,7 @@ public class CookieUtils {
 	public static String getValue(String name, HttpServletRequest request) {
 		Cookie cookie = WebUtils.getCookie(request, name);
 		String value = cookie != null ? cookie.getValue() : null;
-		return value; 
+		return value;
 	}
 
 }
