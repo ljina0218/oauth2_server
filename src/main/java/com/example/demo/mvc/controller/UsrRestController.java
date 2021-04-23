@@ -33,11 +33,5 @@ public class UsrRestController {
 	public Map<String, Object> test(HttpServletRequest request, Model model){
 		return ResponseUtils.putFail(null, "test");
 	}
-	
-	@RequestMapping("/testlsy")
-	public String test() {
-		
-		return "눈치보여요";
-	}
 
 }
