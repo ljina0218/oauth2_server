@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mvc.mapper.UsrMapper">
+	
+	<select id="selectUsrs" resultType="UsrVO">
+		SELECT * FROM usr_tb
+	</select>
+	
+	<select id="selectUsr" parameterType="UsrVO" resultType="UsrVO">
+		SELECT * FROM usr_tb
+		WHERE usr_id = #{usrId}
+	</select>
+	
+	<insert id="insertUsr" parameterType="UsrVO">
+		INSERT INTO usr_tb (usr_id, usr_pw, usr_name) VALUES(
+			#{usrId}, #{usrPw}, #{usrName}
+		)
+	</insert>
+
+</mapper>
+
+
