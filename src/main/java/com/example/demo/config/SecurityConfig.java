@@ -1,11 +1,16 @@
 package com.example.demo.config;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -47,6 +52,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.httpBasic().disable(); // http 기반 인증으로 인증 가능 false
 		
 		http.addFilterBefore(headerCookieFilter(), UsernamePasswordAuthenticationFilter.class);
+		
+		http.exceptionHandling().authenticationEntryPoint((request, response, e)->{
+        	response.setContentType("application/json;charset=UTF-8");
+        	response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        	Map<String, Object> data = new HashMap<>();
+			data.put("code", "FORBIDDEN");
+        	try {
+				response.getWriter().write(
+					new JSONObject()
+							.put("result", false)
+							.put("message", "토큰이 존재하지 않거나 유효하지 않습니다.")
+							.put("data", data).toString());
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
+        });
 		
 		if(log.isDebugEnabled()) log.debug("configure(HttpSecurity http) done !!");
 	}

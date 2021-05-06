@@ -13,8 +13,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import com.example.demo.common.KeyHelper;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Configuration
 public class JwtTokenConfig {
 	
